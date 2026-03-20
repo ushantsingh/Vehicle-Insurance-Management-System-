@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurify Pro | Enterprise Insurance Cloud</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; overflow: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+        .sidebar-link.active { background: #2563eb !important; color: white !important; shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4); }
+        .sidebar-link.active i { color: white !important; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.4s ease-out forwards; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-900">
+
+    <div id="auth-container" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 px-4">
+        <div class="bg-white/95 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-white/20">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl shadow-lg mb-4">
+                    <i class="fas fa-shield-halved text-white text-3xl"></i>
+                </div>
+                <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight">Insurify <span class="text-blue-600">Pro</span></h1>
+                <p class="text-slate-400 text-sm mt-1 font-medium">Cloud Insurance Infrastructure</p>
+            </div>
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">Select Access Portal</label>
+                    <select id="role-select" class="w-full p-4 border-2 border-slate-100 rounded-2xl focus:border-blue-500 outline-none bg-slate-50 font-semibold text-slate-700 transition-all cursor-pointer">
+                        <option value="user">Employee Portal</option>
+                        <option value="manager">Management Console</option>
+                        <option value="admin">Admin Intelligence</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="email" placeholder="name@enterprise.com" class="w-full p-4 border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-blue-700 transition-all active:scale-[0.98]">
+                    Authorize Session
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="main-dashboard" class="hidden min-h-screen flex">
+        <aside class="w-72 bg-white border-r border-slate-200 flex flex-col shrink-0">
+            <div class="p-8 border-b border-slate-100">
+                <h2 class="text-xl font-black text-slate-800 flex items-center gap-2">
+                    <span class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-shield text-white text-xs"></i>
+                    </span>
+                    Insurify
+                </h2>
+            </div>
+            <nav class="flex-grow p-4 space-y-2 mt-4" id="sidebar-nav">
+                <a href="javascript:void(0)" id="nav-dashboard" onclick="navigateTo('dashboard')" class="sidebar-link active flex items-center gap-4 p-4 rounded-xl font-bold text-sm transition-all text-slate-500">
+                    <i class="fas fa-grid-2"></i> Dashboard
+                </a>
+                <a href="javascript:void(0)" id="nav-policy" onclick="navigateTo('policy')" class="sidebar-link flex items-center gap-4 p-4 rounded-xl font-bold text-sm text-slate-500 transition-all">
+                    <i class="fas fa-file-contract"></i> Policy Center
+                </a>
+                <a href="javascript:void(0)" id="nav-history" onclick="navigateTo('history')" class="sidebar-link flex items-center gap-4 p-4 rounded-xl font-bold text-sm text-slate-500 transition-all">
+                    <i class="fas fa-clock-rotate-left"></i> History
+                </a>
+                <a href="javascript:void(0)" id="nav-support" onclick="navigateTo('support')" class="sidebar-link flex items-center gap-4 p-4 rounded-xl font-bold text-sm text-slate-500 transition-all">
+                    <i class="fas fa-circle-info"></i> Support
+                </a>
+            </nav>
+            <div class="p-6 border-t border-slate-100">
+                <div onclick="toggleProfileModal()" class="bg-slate-50 p-4 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-blue-50 transition-all border border-transparent hover:border-blue-100 group">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold group-hover:bg-blue-600 group-hover:text-white transition-all" id="user-avatar">US</div>
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase leading-none" id="user-role-label">Role</p>
+                        <p class="text-xs font-bold text-slate-800 mt-1" id="user-display">User Name</p>
+                    </div>
+                </div>
+                <button onclick="logout()" class="w-full mt-4 flex items-center justify-center gap-2 text-red-500 hover:bg-red-50 p-3 rounded-xl font-bold text-xs transition-all uppercase tracking-widest">
+                    <i class="fas fa-power-off"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <div class="flex-grow flex flex-col h-screen overflow-y-auto">
+            <header class="h-20 glass sticky top-0 z-30 flex items-center justify-between px-10 border-b border-slate-200/50">
+                <h2 class="text-xl font-extrabold text-slate-800 tracking-tight" id="dash-title">Service Console</h2>
+                <div class="flex items-center gap-6">
+                    <div class="relative"><i class="fas fa-bell text-slate-400 text-xl"></i></div>
+                    <p class="text-xs font-bold text-slate-500" id="current-date"></p>
+                </div>
+            </header>
+
+            <main id="content-area" class="p-10"></main>
+        </div>
+    </div>
+
+    <div id="profile-modal" class="hidden fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-[2.5rem] shadow-2xl p-10 relative animate-fade">
+            <button onclick="toggleProfileModal()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-900 transition-colors"><i class="fas fa-times"></i></button>
+            <div class="text-center mb-6">
+                <div class="w-20 h-20 bg-blue-600 rounded-3xl mx-auto mb-4 flex items-center justify-center text-3xl text-white font-black shadow-xl shadow-blue-500/30">US</div>
+                <h3 class="text-2xl font-black text-slate-800">Ushant Singh</h3>
+                <p class="text-blue-600 text-xs font-black uppercase tracking-widest mt-1">Senior Associate</p>
+            </div>
+            <div class="space-y-4 border-t border-slate-100 pt-6 text-left font-medium">
+                <div class="flex justify-between text-xs"><span class="text-slate-400 font-bold uppercase tracking-tighter">Employee ID</span><span class="font-black text-slate-700">EMP-2026-99</span></div>
+                <div class="flex justify-between text-xs"><span class="text-slate-400 font-bold uppercase tracking-tighter">Department</span><span class="font-black text-slate-700">Logistics Operations</span></div>
+                <div class="flex justify-between text-xs"><span class="text-slate-400 font-bold uppercase tracking-tighter">Status</span><span class="text-emerald-500 font-black">Authorized</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

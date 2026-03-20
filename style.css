@@ -1,0 +1,161 @@
+/* Core Styling */
+body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+/* Glassmorphism Header */
+.glass { 
+    background: rgba(255, 255, 255, 0.8); 
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+/* Sidebar Active & Hover States */
+.sidebar-link.active { 
+    background: #2563eb !important; 
+    color: white !important; 
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4); 
+}
+
+.sidebar-link.active i { color: white !important; }
+
+.sidebar-link {
+    transition: all 0.3s ease;
+}
+
+.sidebar-link:hover:not(.active) {
+    background: rgba(37, 99, 235, 0.05);
+    transform: translateX(8px);
+    color: #2563eb !important;
+}
+
+/* Page Animations */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(15px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+.animate-fade { 
+    animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+}
+
+/* Card Visual Improvements */
+.bg-white.rounded-3xl, 
+.bg-white.rounded-\[2rem\], 
+.bg-white.rounded-\[2\.5rem\] {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid transparent;
+}
+
+.bg-white.rounded-3xl:hover, 
+.bg-white.rounded-\[2rem\]:hover, 
+.bg-white.rounded-\[2\.5rem\]:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+    border-color: rgba(37, 99, 235, 0.15);
+}
+
+/* Pulse Status for Approved Claims */
+.bg-emerald-100 {
+    animation: pulse-active 2s infinite;
+}
+
+@keyframes pulse-active {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+
+/* ============================================================
+   NEW FEATURES STYLING (Manager UI Enhancements)
+   ============================================================ */
+
+/* Manager Action Buttons Animation */
+button:active {
+    transform: scale(0.95);
+}
+
+.bg-emerald-500:hover {
+    box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+}
+
+.bg-rose-500:hover {
+    box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.3);
+}
+
+/* User Card Glow on Hover */
+.user-profile-card:hover {
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+
+/* ============================================================
+   RESPONSIVE OVERRIDES (MOBILE & TABLET SUPPORT)
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    /* Stack Sidebar and Main Content vertically */
+    #main-dashboard {
+        flex-direction: column !important;
+        overflow-y: auto !important;
+    }
+
+    /* Adjust Sidebar height and remove fixed width */
+    aside.w-72 {
+        width: 100% !important;
+        height: auto !important;
+        border-right: none !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+    }
+
+    /* Center navigation links on small screens */
+    #sidebar-nav {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        padding: 1rem !important;
+    }
+
+    .sidebar-link {
+        flex: 1 1 150px !important;
+        justify-content: center !important;
+    }
+
+    /* Make content area full width */
+    .flex-grow.flex-col.h-screen {
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    /* Force Grid columns to stack */
+    .grid.lg\:grid-cols-12 {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+    
+    .lg\:col-span-4, .lg\:col-span-8 {
+        grid-column: span 1 / span 1 !important;
+    }
+
+    /* Adjust Modal sizing for mobile */
+    #profile-modal > div {
+        max-width: 90% !important;
+        padding: 2rem !important;
+    }
+}
+
+@media (max-width: 640px) {
+    /* Hide specific non-critical headers on very small phones */
+    #current-date {
+        display: none !important;
+    }
+    
+    .p-10 {
+        padding: 1.5rem !important;
+    }
+    
+    .h-20.glass {
+        padding: 0 1.5rem !important;
+    }
+}
